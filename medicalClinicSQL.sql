@@ -2,7 +2,7 @@ USE medicalclinic;
 
 DROP TABLE clinic_employee;
 CREATE TABLE clinic_employee(
-	employee_id INT PRIMARY KEY UNIQUE,
+    employee_id INT PRIMARY KEY UNIQUE,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
     birth_date DATE,
@@ -15,6 +15,46 @@ CREATE TABLE clinic_employee(
     city VARCHAR(10),
     state VARCHAR(10),
     zipcode VARCHAR(10)
+);
+
+DROP TABLE admin_employee;
+
+CREATE TABLE admin_employee(
+    employee_id CHAR(10) NOT NULL,
+    f_name VARCHAR(20) NOT NULL,
+    l_name VARCHAR(20) NOT NULL,
+    birth_date DATE,
+    race VARCHAR(20),
+    ethnicity VARCHAR(20),
+    sex VARCHAR(1),
+    email VARCHAR(30),
+    phone_number VARCHAR(15),
+    address VARCHAR(30),
+    city VARCHAR(10),
+    state VARCHAR(10),
+    zipcode VARCHAR(10),
+    PRIMARY KEY (employee_id)
+    FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id) -- Not sure these last two lines are right but can be fixed later - XG
+);
+
+DROP TABLE receptionist;
+
+CREATE TABLE receptionist(
+    employee_id CHAR(10) NOT NULL,
+    f_name VARCHAR(20) NOT NULL,
+    l_name VARCHAR(20) NOT NULL,
+    birth_date DATE,
+    race VARCHAR(20),
+    ethnicity VARCHAR(20),
+    sex VARCHAR(1),
+    email VARCHAR(30),
+    phone_number VARCHAR(15),
+    address VARCHAR(30),
+    city VARCHAR(10),
+    state VARCHAR(10),
+    zipcode VARCHAR(10),
+    PRIMARY KEY (employee_id),
+    FOREIGN KEY (employee_id) REFERENCES admin_employee(employee_id) -- Not sure these last two lines are right but can be fixed later - XG
 );
 
 DROP TABLE patient;
@@ -41,7 +81,7 @@ DROP TABLE specialty;
 CREATE TABLE specialty(
 	specialty_id SMALLINT NOT NULL PRIMARY KEY,
 	specialty_name VARCHAR(20) NOT NULL
-	);
+);
 	
 
 DROP TABLE doctor;
