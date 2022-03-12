@@ -1,8 +1,31 @@
 USE medicalclinic;
 
-DROP TABLE clinic_employee;
+-- DROP TABLE clinic_employee;
+-- DROP TABLE admin_employee;
+-- DROP TABLE receptionist;
+-- DROP TABLE patient;
+-- DROP TABLE department;
+-- DROP TABLE nurse;
+-- DROP TABLE med_staff;
+-- DROP TABLE specialty;
+-- DROP TABLE doctor;
+-- DROP TABLE office;
+-- DROP TABLE room;
+-- DROP TABLE appointment;
+-- DROP TABLE InsuranceComp;
+-- DROP TABLE emergency;
+-- DROP TABLE meds; 
+-- DROP TABLE patmeds; 
+
+
+-- INSERT INTO patient VALUE ("Malik", "Taylor");
+-- SELECT * FROM patient;
+
+-- INSERT INTO clinic_employee VALUE (10000, "Malik", "Taylor", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
 CREATE TABLE clinic_employee(
-    employee_id INT PRIMARY KEY UNIQUE,
+    employee_id VARCHAR(10) PRIMARY KEY UNIQUE,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
     birth_date DATE,
@@ -17,10 +40,8 @@ CREATE TABLE clinic_employee(
     zipcode VARCHAR(10)
 );
 
-DROP TABLE admin_employee;
-
 CREATE TABLE admin_employee(
-    employee_id CHAR(10) NOT NULL,
+    employee_id VARCHAR(10) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
@@ -33,14 +54,13 @@ CREATE TABLE admin_employee(
     city VARCHAR(10),
     state VARCHAR(10),
     zipcode VARCHAR(10),
-    PRIMARY KEY (employee_id)
+    PRIMARY KEY (employee_id),
     FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id) -- Not sure these last two lines are right but can be fixed later - XG
 );
 
-DROP TABLE receptionist;
 
 CREATE TABLE receptionist(
-    employee_id CHAR(10) NOT NULL,
+    employee_id VARCHAR(10) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
@@ -57,9 +77,10 @@ CREATE TABLE receptionist(
     FOREIGN KEY (employee_id) REFERENCES admin_employee(employee_id) -- Not sure these last two lines are right but can be fixed later - XG
 );
 
-DROP TABLE patient;
+
 
 CREATE TABLE patient(
+	patient_id CHAR(10) NOT NULL,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
     birth_date DATE,
@@ -71,26 +92,21 @@ CREATE TABLE patient(
     address VARCHAR(30),
     city VARCHAR(10),
     state VARCHAR(10),
-    patient_id CHAR(10) NOT NULL,
     zipcode VARCHAR(10),
     PRIMARY KEY(patient_id)
 );
 
-DROP TABLE department;
-CREATE TABLE department{
+CREATE TABLE department(
     department_id VARCHAR(10) PRIMARY KEY UNIQUE,
     department_name VARCHAR(30) NOT NULL,
     employee_id CHAR(10) NOT NULL,
     staff_count INT,
     office_id CHAR(10) NOT NULL,
-    PRIMARY KEY(employee_id),
     FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id),
-    PRIMARY KEY(office_id,)
-    FOREIGN KEY(office_id) REFERENCES office(office_id),
-};
+    FOREIGN KEY(office_id) REFERENCES office(office_id)
+);
 
-DROP TABLE nurse;
-CREATE TABLE nurse{
+CREATE TABLE nurse(
     employee_id CHAR(10) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
@@ -101,13 +117,10 @@ CREATE TABLE nurse{
     hired DATETIME NOT NULL,
     department_id VARCHAR(10),
     PRIMARY KEY(employee_id),
-    FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id),
-    PRIMARY KEY(office_id,)
-    FOREIGN KEY office_id) REFERENCES office(office_id),
-}
+    FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id)
+);
 
-DROP TABLE med_staff;
-CREATE TABLE med_staff{
+CREATE TABLE med_staff(
     employee_id CHAR(10) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
@@ -118,24 +131,18 @@ CREATE TABLE med_staff{
     hired DATETIME NOT NULL,
     department_id VARCHAR(10),
     PRIMARY KEY(employee_id),
-    FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id),
-    PRIMARY KEY(office_id,)
-    FOREIGN KEY office_id) REFERENCES office(office_id),
-}
-DROP TABLE specialty;
+    FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id)
+);
 
 CREATE TABLE specialty(
 	specialty_id SMALLINT NOT NULL PRIMARY KEY,
 	specialty_name VARCHAR(20) NOT NULL
 );
-	
 
-DROP TABLE doctor;
-
-CREATE TABLE doctor( 
+CREATE TABLE doctor(
+    employee_id VARCHAR(10) NOT NULL, 
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
-    employee_id CHAR(10) NOT NULL,
     birth_date DATE,
     race VARCHAR(20),
     ethnicity VARCHAR(20),
@@ -147,14 +154,11 @@ CREATE TABLE doctor(
     state VARCHAR(10),
     zipcode VARCHAR(10),
     hired DATETIME NOT NULL,
-    specialty_id CHAR(5) NOT NULL,
+    specialty_id SMALLINT NOT NULL,
     PRIMARY KEY (employee_id),
     FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id),
-    FOREIGN KEY (specialty_id) REFERENCES specialty (specialty_id)     
-
+    FOREIGN KEY (specialty_id) REFERENCES specialty(specialty_id)     
 );
-
-DROP TABLE office;
 
 CREATE TABLE office(
 	office_id CHAR(10) NOT NULL,
@@ -164,14 +168,12 @@ CREATE TABLE office(
 	PRIMARY KEY(office_id)
 );
 
-DROP TABLE room;
 
 CREATE TABLE room(
 	room_num SMALLINT,
-	unavaliable BOOLEAN
+	unavaliable BOOLEAN,
+    PRIMARY KEY(room_num)
 );
-
-DROP TABLE appointment;
 
 CREATE TABLE appointment(
     appt_id CHAR(10) NOT NULL,
@@ -188,18 +190,15 @@ CREATE TABLE appointment(
     FOREIGN KEY(nurse_id) REFERENCES clinic_employee(employee_id),
     FOREIGN KEY(doctor_id) REFERENCES clinic_employee(employee_id),
     FOREIGN KEY(office_id) REFERENCES office(office_id),
-    FOREIGN KEY(room_num) REFERENCES room(room_num),
+    FOREIGN KEY(room_num) REFERENCES room(room_num)
 );
 
-DROP TABLE InsuranceComp;
 
 CREATE TABLE InsuranceComp(
     company_id INT PRIMARY KEY UNIQUE,
     name VARCHAR(50),
     phone_num VARCHAR(15)
 );
-
-DROP TABLE emergency;
 
 CREATE TABLE emergency(
     patient_id CHAR(10) NOT NULL,
@@ -209,7 +208,9 @@ CREATE TABLE emergency(
     FOREIGN KEY(patient_id) REFERENCES patient(patient_id)
 );
 
-DROP TABLE patallergens; -- I decided to combine patient allergens and allergens as they seemed redundant in the schema
+-- Note: We nee to seperate these two, as patient allergens and allergens are not to be combined. We need to have a database of all the allergens there are and then use the table patient allergens to keep track of what patients 
+-- have that allergy. In the scenario that there has been a new allergen that has been added or discovered this table would not work. We can't add the allergy without there being a patient in our specific hospital with it. This
+-- is not right. Think of this like our meds and patmeds. Hope this makes sense :) 
 
 CREATE TABLE patallergens(
     allergy_id INT PRIMARY KEY UNIQUE NOT NULL,
@@ -219,16 +220,12 @@ CREATE TABLE patallergens(
     FOREIGN KEY(patient_id) REFERENCES patient(patient_id)
 );
 
-DROP TABLE meds; 
-
 CREATE TABLE meds(
     meds_id CHAR(10) PRIMARY KEY UNIQUE NOT NULL,
     meds_name VARCHAR(30),
     description VARCHAR(100),
     dosage VARCHAR(10)
 );
-
-DROP TABLE patmeds; 
 
 CREATE TABLE patmeds(
     meds_id CHAR(10) NOT NULL,
@@ -239,7 +236,3 @@ CREATE TABLE patmeds(
     FOREIGN KEY(appoint_id) REFERENCES appointment(appt_id)
 );
 
-
-
-INSERT INTO patient VALUE ("Malik", "Taylor");
-SELECT * FROM patient
