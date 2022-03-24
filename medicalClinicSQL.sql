@@ -212,11 +212,16 @@ CREATE TABLE emergency(
 -- have that allergy. In the scenario that there has been a new allergen that has been added or discovered this table would not work. We can't add the allergy without there being a patient in our specific hospital with it. This
 -- is not right. Think of this like our meds and patmeds. Hope this makes sense :) 
 
-CREATE TABLE patallergens(
+CREATE TABLE allergens(
     allergy_id INT PRIMARY KEY UNIQUE NOT NULL,
     allergy_name VARCHAR(20) NOT NULL,
     description VARCHAR(100),
+);
+
+CREATE TABLE patallergens(
+    allergy_id CHAR(10) NOT NULL,
     patient_id CHAR(10) NOT NULL,
+    FOREIGN KEY(allergy_id) REFERENCES allergens(allergy_id),
     FOREIGN KEY(patient_id) REFERENCES patient(patient_id)
 );
 
@@ -236,3 +241,10 @@ CREATE TABLE patmeds(
     FOREIGN KEY(appoint_id) REFERENCES appointment(appt_id)
 );
 
+
+CREATE TRIGGER ALLERGY_VIOLATION
+BEFORE INSERT OR UPDATE OF meds_id, patient_id ON patmeds
+
+FOR EACH ROW
+WHEN (NEW.meds_id == (SELECT allergy_id FROM patallergens WHERE NEW.patient_id == patient_id))
+INFORM_DOCTOR(patient_id, allergy_id) 
