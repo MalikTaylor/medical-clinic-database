@@ -149,7 +149,7 @@ if($affected_rows == 1){
 
     mysqli_stmt_close($stmt);
 
-    mysqli_close($conn;
+    mysqli_close($conn);
 }else{
     echo "Error Occured<br />";
     echo mysqli_error();
