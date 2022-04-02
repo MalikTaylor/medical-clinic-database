@@ -16,7 +16,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important; padding: 40px 40px 40px 0px;"> 
             <a class="navbar-brand" href="#">
-                <img src="./images/banner-logo.png" style="width: 200px">
+                <img src="clinic-webportal/images/banner-logo.png" style="width: 200px">
             </a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="patient-information col-md-9">
                 <h2 style="border-bottom: 1px solid #CCC;">Patient Information</h1>
-                <form action="https://localhost/clinic-webportal/addedpatient.php" class="form-container" style="padding: 0px;" method="POST">
+                <form action="clinic-webportal/addedpatient.php" class="form-container" style="padding: 0px;" method="POST">
                     <div class="col-sm-6 form-field" style="float: left;">
                         <label for="f_name">First Name</label>
                         <input class="name-field" type="text" name="f_name" required>  
