@@ -1,0 +1,135 @@
+
+.page-heading{
+    border-bottom: 1px solid #CCC;
+}
+
+input, select{
+    height: 35px;
+    width: 100%;
+    display: block;
+}
+
+label{
+    display: block;
+}
+
+
+.form-container{
+    margin-top: 30px;
+}
+
+
+
+.form-field{
+    padding: 0px 15px 0px 15px;
+    margin-bottom: 15px;
+    float: left;
+}
+
+.card{
+    margin-top: 30px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%);
+    padding: 8.5px;
+}
+
+.progressBar-container{
+    margin-top: 35px;
+}
+
+.progress-container{
+    padding: 15px;
+}  
+
+.progressNode{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display:inline-block;
+    transition: all 1000ms ease;
+}
+
+.progressNodeLine{
+    height: 40px;
+    width: 2px;
+    margin-left: 8px;
+    transition: all 800ms ease;
+}
+
+.progressBar li p{
+    display: inline-block;
+    margin-left: 25px;
+    margin-bottom: 0px;
+}
+
+.progressBar li{
+    list-style: none;
+    line-height: 1px;
+}
+
+.grey{
+    background-color: grey;
+}
+
+.recaptcha-form{
+    padding: 15px;
+    margin-top: 25px;
+}
+
+
+#appoinment-time, #appoinment-location{
+    line-height: 5px;
+} 
+
+#app-date-field{
+    max-width: 225px;
+}
+.appointment-btn{
+    border: 1px solid #CCC;
+}
+
+#schedule-container{
+    height: 500px;
+    overflow: scroll;
+}
+
+.card-provider{
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    background-color: #F4F0F0;
+    margin-bottom: 15px;
+}
+
+.card-provider-title{
+    padding: 8.5px 8.5px 0px 8.5px;
+    background-color: #F4F0F0;
+}
+
+.card-provider-content{
+    background-color: white;
+    padding: 8.5px;
+}
+
+.time-avail-btn{
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    min-width: 100px;
+    max-height: 30px;
+    justify-content: center;
+    background-color: #6eb0ca !important;
+    color: white;
+}
+
+.form-btn{
+    width: 120px;
+    margin-top: 30px;
+    border-radius: 2px;
+    color: white;
+    background-color: grey;
+    display: inline;
+}
+
+#submit-btn{
+    background-color: rgb(91,151,175);
+}
