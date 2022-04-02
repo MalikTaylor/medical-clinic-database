@@ -135,7 +135,7 @@ if(empty($data_missing)){
     $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
-$stmt = mysqli_prepare($dbc, $query);
+$stmt = mysqli_prepare($conn, $query);
 
 mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, $birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
 
@@ -149,14 +149,14 @@ if($affected_rows == 1){
 
     mysqli_stmt_close($stmt);
 
-    mysqli_close($dbc);
+    mysqli_close($conn;
 }else{
     echo "Error Occured<br />";
     echo mysqli_error();
 
     mysqli_stmt_close($stmt);
 
-    mysqli_close($dbc);
+    mysqli_close($conn);
 } 
 
 } else{

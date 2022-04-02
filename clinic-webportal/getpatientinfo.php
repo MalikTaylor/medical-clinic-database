@@ -5,7 +5,7 @@
 
     $return_patient = "SELECT * FROM patient";
 
-    $response = @mysqli_query($dbc, $return_patient);
+    $response = @mysqli_query($conn, $return_patient);
 
     if($response){
         echo '<table align="left"
@@ -50,9 +50,9 @@
     } else{
         echo "Could not issue databse query";
 
-        echo mysqli_error($dbc);
+        echo mysqli_error($conn);
     }
 
-mysqli_close($dbc);
+mysqli_close($conn);
 
 ?>
