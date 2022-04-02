@@ -168,88 +168,88 @@
     $starting_id += 1;
     ?>
 
-    <form action="https://localhost/addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="f_name">First Name</label>
-            <input class="name-field" type="text" name="f_name" required>  
-        </div>
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="l_name">Last Name</label>
-            <input class="name-field" type="text" name="l_name" required>  
-        </div>
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="birth_date">Date of Birth</label>
-            <input class="name-field" type="date" name="birth_date" placeholder="MM-DD-YYYY" required>  
-        </div>
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="race">Race</label>
-            <select name="race" required>
-                <option value="" disable selected hidden>-Select-</option>
-                <option>Black or African American</option>
-                <option>Asian</option>
-                <option>White</option>
-                <option>American Indian or Alaska Native</option>
-                <option>Hawaiian or Other Pacific Islander</option>
-            </select>  
-        </div>
-        
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="ethnicity">Ethnicity</label>
-            <select name="ethnicity" required>
-                <option value="" disable selected hidden>-Select-</option>
-                <option>Non Hispanic</option>
-                <option>Hispanic or LatinX</option>
-            </select>  
-        </div>
-
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="sex">Sex (Assigned at Birth)</label>
-            <select name="sex" required>
-                <option value="" disable selected hidden>-Select-</option>
-                <option>Male</option>
-                <option>Female</option>
-            </select>  
-        </div>
-
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="email">Email</label>
-            <input class="name-field" type="text" name="email" required>  
-        </div>
-        
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="phone">Phone Number</label>
-            <input class="name-field" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>  
-        </div>
-        
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="address"></label>Address</label>
-            <input class="name-field" type="text" name="address" required>  
-        </div>
-        
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="city">City</label>
-            <input class="name-field" type="text" name="city" required>  
-        </div>
-
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="state">State</label>
-            <input class="name-field" type="text" name="state" required>  
-        </div>
-
-        <div class="col-sm-6 patient-form-group" style="float: left;">
-            <label for="zip">Zip Code</label>
-            <input class="name-field" type="text" name="zip" required>  
-        </div>
-
-        <div class="form-group container">
-            <div class="col-sm-6 text-center" style="float: left;">
-                <button style="display: inline;" class="form-btn btn btn-lg">Cancel</button>
+        <form action="./addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="f_name">First Name</label>
+                <input class="name-field" type="text" name="f_name" required>  
             </div>
-            <div class="col-sm-6"style="float: left;">
-                <button id="submit-bt" class="form-btn btn btn-lg" type="submit" name="submit">Submit</button>
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="l_name">Last Name</label>
+                <input class="name-field" type="text" name="l_name" required>  
             </div>
-        </div>
-    </form>
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="birth_date">Date of Birth</label>
+                <input class="name-field" type="date" name="birth_date" placeholder="MM-DD-YYYY" required>  
+            </div>
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="race">Race</label>
+                <select name="race" required>
+                    <option value="" disable selected hidden>-Select-</option>
+                    <option>Black or African American</option>
+                    <option>Asian</option>
+                    <option>White</option>
+                    <option>American Indian or Alaska Native</option>
+                    <option>Hawaiian or Other Pacific Islander</option>
+                </select>  
+            </div>
+            
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="ethnicity">Ethnicity</label>
+                <select name="ethnicity" required>
+                    <option value="" disable selected hidden>-Select-</option>
+                    <option>Non Hispanic</option>
+                    <option>Hispanic or LatinX</option>
+                </select>  
+            </div>
+
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="sex">Sex (Assigned at Birth)</label>
+                <select name="sex" required>
+                    <option value="" disable selected hidden>-Select-</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>  
+            </div>
+
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="email">Email</label>
+                <input class="name-field" type="text" name="email" required>  
+            </div>
+            
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="phone">Phone Number</label>
+                <input class="name-field" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>  
+            </div>
+            
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="address"></label>Address</label>
+                <input class="name-field" type="text" name="address" required>  
+            </div>
+            
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="city">City</label>
+                <input class="name-field" type="text" name="city" required>  
+            </div>
+
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="state">State</label>
+                <input class="name-field" type="text" name="state" required>  
+            </div>
+
+            <div class="col-sm-6 patient-form-group" style="float: left;">
+                <label for="zip">Zip Code</label>
+                <input class="name-field" type="text" name="zip" required>  
+            </div>
+
+            <div class="form-group container">
+                <div class="col-sm-6 text-center" style="float: left;">
+                    <button style="display: inline;" class="form-btn btn btn-lg">Cancel</button>
+                </div>
+                <div class="col-sm-6"style="float: left;">
+                    <button id="submit-bt" class="form-btn btn btn-lg" type="submit" name="submit">Submit</button>
+                </div>
+            </div>
+        </form>
     
     </body>
 </html>
