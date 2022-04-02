@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
-    <link href="./styles.css" rel="stylesheet"></link>
+    <link href="clinic-webportal/styles.css" rel="stylesheet"></link>
     <title>Helix Health Center</title>
 </head>
 <body>
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="patient-information col-md-9">
                 <h2 style="border-bottom: 1px solid #CCC;">Patient Information</h1>
-                <form action="./addedpatient.php" class="form-container" style="padding: 0px;" method="POST">
+                <form action="clinic-webportal/addedpatient.php" class="form-container" style="padding: 0px;" method="POST">
                     <div class="col-sm-6 form-field" style="float: left;">
                         <label for="f_name">First Name</label>
                         <input class="name-field" type="text" name="f_name" required>  

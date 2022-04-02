@@ -25,7 +25,7 @@ USE medicalclinic;
 
 
 CREATE TABLE clinic_employee(
-    employee_id VARCHAR(10) PRIMARY KEY UNIQUE,
+    employee_id VARCHAR(10) PRIMARY KEY,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
     birth_date DATE,
@@ -99,7 +99,7 @@ CREATE TABLE patient(
 
 
 CREATE TABLE department(
-    department_id VARCHAR(10) PRIMARY KEY UNIQUE,
+    department_id VARCHAR(10) PRIMARY KEY,
     department_name VARCHAR(30) NOT NULL,
     employee_id CHAR(10) NOT NULL,
     staff_count INT,
@@ -159,7 +159,7 @@ CREATE TABLE doctor(
 
 CREATE TABLE specialty(
 	specialty_id SMALLINT NOT NULL PRIMARY KEY,
-	specialty_name VARCHAR(20) NOT NULL,
+	specialty_name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE doctor_specialty(
@@ -203,7 +203,7 @@ CREATE TABLE appointment(
 
 
 CREATE TABLE InsuranceComp(
-    company_id INT PRIMARY KEY UNIQUE,
+    company_id INT PRIMARY KEY,
     name VARCHAR(50),
     phone_num VARCHAR(15)
 );
@@ -221,20 +221,20 @@ CREATE TABLE emergency(
 -- is not right. Think of this like our meds and patmeds. Hope this makes sense :) 
 
 CREATE TABLE allergens(
-    allergy_id INT PRIMARY KEY UNIQUE NOT NULL,
+    allergy_id INT PRIMARY KEY NOT NULL,
     allergy_name VARCHAR(20) NOT NULL,
-    description VARCHAR(100),
+    description VARCHAR(100)
 );
 
 CREATE TABLE patallergens(
-    allergy_id CHAR(10) NOT NULL,
+    allergy_id INT NOT NULL,
     patient_id CHAR(10) NOT NULL,
     FOREIGN KEY(allergy_id) REFERENCES allergens(allergy_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(patient_id) REFERENCES patient(patient_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE meds(
-    meds_id CHAR(10) PRIMARY KEY UNIQUE NOT NULL,
+    meds_id CHAR(10) PRIMARY KEY NOT NULL,
     meds_name VARCHAR(30),
     description VARCHAR(100),
     dosage VARCHAR(10)
@@ -253,8 +253,8 @@ CREATE TABLE patmeds(
 CREATE TABLE approval(
 	specialty_id SMALLINT NOT NULL,
 	patient_id CHAR(10) NOT NULL,
-	FOREIGN KEY(specialty_id) REFERENCES specialty(employee_id) ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY(patient_id) REFERENCES patient(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY(specialty_id) REFERENCES specialty(specialty_id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(patient_id) REFERENCES patient(patient_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TRIGGER before_appointment
