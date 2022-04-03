@@ -7,7 +7,7 @@
 
     <?php
 
-$starting_id = 100002;
+$starting_id = rand(10000, 19999);
 
 if(isset($_POST["submit"])){
     $data_missing = array();
@@ -166,7 +166,7 @@ foreach($data_missing as $missing){
 }
 }
 
-$starting_id += 1;
+
 ?>
 
 <form action="./addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
