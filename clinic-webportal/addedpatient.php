@@ -1,173 +1,178 @@
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <link href="./styles.css" rel="stylesheet"></link>
         <title>Helix Health Center</title>
     </head>
 
     <body>
+        <?php
+            $starting_id = rand(100000, 199999);
 
-    <?php
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-$starting_id = rand(10000, 19999);
+                if(empty($_POST["f_name"])){
+                    $data_missing[] = "f_name";
+                }else{
+                    $f_name = trim($_POST["f_name"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["f_name"])){
-        $data_missing[] = "f_name";
-    }else{
-        $f_name = trim($_POST["f_name"]);
-    }
-}
+                if(empty($_POST["l_name"])){
+                    $data_missing[] = "l_name";
+                }else{
+                    $l_name = trim($_POST["l_name"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["l_name"])){
-        $data_missing[] = "l_name";
-    }else{
-        $l_name = trim($_POST["l_name"]);
-    }
-}
+                if(empty($_POST["birthbirth_date"])){
+                    $data_missing[] = "birthbirth_date";
+                }else{
+                    $birth_date = trim($_POST["birth_date"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["birthbirth_date"])){
-        $data_missing[] = "birthbirth_date";
-    }else{
-        $birth_date = trim($_POST["birth_date"]);
-    }
-}
+                if(empty($_POST["race"])){
+                    $data_missing[] = "race";
+                }else{
+                    $race = trim($_POST["race"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["race"])){
-        $data_missing[] = "race";
-    }else{
-        $race = trim($_POST["race"]);
-    }
-}
+                if(empty($_POST["ethnicity"])){
+                    $data_missing[] = "ethnicity";
+                }else{
+                    $ethnicity = trim($_POST["ethnicity"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["ethnicity"])){
-        $data_missing[] = "ethnicity";
-    }else{
-        $ethnicity = trim($_POST["ethnicity"]);
-    }
-}
+                if(empty($_POST["sex"])){
+                    $data_missing[] = "sex";
+                }else{
+                    $sex = trim($_POST["sex"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["sex"])){
-        $data_missing[] = "sex";
-    }else{
-        $sex = trim($_POST["sex"]);
-    }
-}
+                if(empty($_POST["email"])){
+                    $data_missing[] = "email";
+                }else{
+                    $email = trim($_POST["email"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["email"])){
-        $data_missing[] = "email";
-    }else{
-        $email = trim($_POST["email"]);
-    }
-}
+                if(empty($_POST["phone_number"])){
+                    $data_missing[] = "phone_number";
+                }else{
+                    $phone_number = trim($_POST["phone_number"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["phone_number"])){
-        $data_missing[] = "phone_number";
-    }else{
-        $phone_number = trim($_POST["phone_number"]);
-    }
-}
+                if(empty($_POST["address"])){
+                    $data_missing[] = "address";
+                }else{
+                    $address = trim($_POST["address"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["address"])){
-        $data_missing[] = "address";
-    }else{
-        $address = trim($_POST["address"]);
-    }
-}
+                if(empty($_POST["city"])){
+                    $data_missing[] = "city";
+                }else{
+                    $city = trim($_POST["city"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["city"])){
-        $data_missing[] = "city";
-    }else{
-        $city = trim($_POST["city"]);
-    }
-}
+                if(empty($_POST["state"])){
+                    $data_missing[] = "state";
+                }else{
+                    $state = trim($_POST["state"]);
+                }
+            }
 
-if(isset($_POST["submit"])){
-    $data_missing = array();
+            if(isset($_POST["submit"])){
+                $data_missing = array();
 
-    if(empty($_POST["state"])){
-        $data_missing[] = "state";
-    }else{
-        $state = trim($_POST["state"]);
-    }
-}
-
-if(isset($_POST["submit"])){
-    $data_missing = array();
-
-    if(empty($_POST["zipcode"])){
-        $data_missing[] = "zipcode";
-    }else{
-        $zipcode = trim($_POST["zipcode"]);
-    }
-}
+                if(empty($_POST["zipcode"])){
+                    $data_missing[] = "zipcode";
+                }else{
+                    $zipcode = trim($_POST["zipcode"]);
+                }
+            }
 
 
-if(empty($data_missing)){
-    require_once("../mysqli_connect.php");
-    $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            if(empty($data_missing)){
+                require_once("../mysqli_connect.php");
+                $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
-$stmt = mysqli_prepare($conn, $query);
+            $stmt = mysqli_prepare($conn, $query);
 
-mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, $birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
+            mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, $birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
 
-mysqli_stmt_execute($stmt);
+            mysqli_stmt_execute($stmt);
 
-$affected_rows = mysqli_stmt_affected_rows($stmt);
+            $affected_rows = mysqli_stmt_affected_rows($stmt);
 
-if($affected_rows == 1){
-    
-    echo "Patient Entered";
+            if($affected_rows == 1){
+                
+                echo "Patient Entered";
 
-    mysqli_stmt_close($stmt);
+                mysqli_stmt_close($stmt);
 
-    mysqli_close($conn);
-}else{
-    echo "Error Occured<br />";
-    echo mysqli_error();
+                mysqli_close($conn);
+            }else{
+                echo "Error Occured<br />";
+                echo mysqli_error();
 
-    mysqli_stmt_close($stmt);
+                mysqli_stmt_close($stmt);
 
-    mysqli_close($conn);
-} 
+                mysqli_close($conn);
+            } 
 
-} else{
-echo "You need to enter the following data<br />";
-foreach($data_missing as $missing){
-    echo "$missing<br />";
-}
-}
-
-
-?>
+            } else{
+            echo "You need to enter the following data<br />";
+                foreach($data_missing as $missing){
+                    echo "$missing<br />";
+                }
+            }
+        ?>
 
 <form action="./addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
     <div class="col-sm-6 patient-form-group" style="float: left;">
