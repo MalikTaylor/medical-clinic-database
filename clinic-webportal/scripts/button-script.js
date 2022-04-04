@@ -1,4 +1,3 @@
-
 window.onload = function(){
     $('.step-1').click(function(event){
         $('.step-1').removeClass('active');
