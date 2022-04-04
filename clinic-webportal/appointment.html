@@ -7,6 +7,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://www.google.com/recaptcha/api.js"></script>
         <link href="./styles.css" rel="stylesheet"></link>
+        <script type="text/javascript" src="../button-script.js"></script>
     </head>
     <body>
         <div class="container">
@@ -25,24 +26,42 @@
                     <div class="specialty-container card">
                         <h4 class="card-title">Choose a Specialty:</h4>
                         <div class="btn-group">  <!-- Add image to button -->
-                            <button class="appointment-btn btn">Internal Medicine</button>  
-                            <button class="appointment-btn btn">Family Practice</button>
-                            <button class="appointment-btn btn">Dermatology</button>
-                            <button class="appointment-btn btn">Pediactrics</button>
-                            <button class="appointment-btn btn">OB/Gyn</button>
-                            <button class="appointment-btn btn">Othopedics</button>
-                            <button class="appointment-btn btn">Podiatry</button>
+                            <button data-id='group-1' class="step-1 appointment-btn  btn">Internal Medicine</button>  
+                            <button data-id='group-2' class="step-1 appointment-btn btn">Family Practice</button>
+                            <button data-id='group-3' class="step-1 appointment-btn btn">Dermatology</button>
+                            <button data-id='group-4' class="step-1 appointment-btn btn">Pediactrics</button>
+                            <button data-id='group-5' class="step-1 appointment-btn btn">OB/Gyn</button>
+                            <button data-id='group-6' class="step-1 appointment-btn btn">Othopedics</button>
+                            <button data-id='group-7' class="step-1 appointment-btn btn">Podiatry</button>
                         </div>
                     </div>
 
                     <div class="reason-container card">
                         <h4 class="card-title">Choose your reason:</h4>
-                        <div class="btn-group">
-                            <button class="appointment-btn btn">Button</button>
-                            <button class="appointment-btn btn">Button</button>
-                            <button class="appointment-btn btn">Button</button>
-                            <button class="appointment-btn btn">Button</button>
+                        <div id="group-1" class="step-2">
+                            <div class="btn-group">
+                                <button class="reason-btn btn">Physical Exam</button>  
+                                <button class="reason-btn btn">New Patient - Office Visit</button> 
+                                <button class="reason-btn btn">Follow-up Visit</button> 
+                                <button class="reason-btn btn">COVID-19 Screening</button> 
+                            </div>
                         </div>
+
+                        <div id="group-2" class="step-2"> 
+                            <div class="btn-group">
+                                <button class="reason-btn btn">Child Wellness Check</button>
+                                <button class="reason-btn btn">Physical Exam</button>
+                            </div>
+                        </div>
+                        
+                        <div id="group-3" class="step-2">
+                            <div class="btn-group">
+                                <button class="reason-btn btn">Follow Up - Dermatology</button>
+                                <button class="reason-btn btn">New Problem - Dermatology</button>
+                                <button class="reason-btn btn">New Patient - Dermatology</button>
+                            </div>
+                        </div>
+                        
                     </div>
 
                     <div id="schedule-container" class="card">
@@ -162,7 +181,7 @@
                         </div>
                         <form action="./addpatient.html">
                             <label for="reason">Reason for Visit</label>
-                            <input type="text" name="reason"></input>
+                            <input type="text" name="reason" required></input>
                             <button class="form-btn btn btn-lg" type="submit">Continue</button>
                         </form>
 

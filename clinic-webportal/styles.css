@@ -89,6 +89,30 @@ label{
     border: 1px solid #CCC;
 }
 
+.appointment-btn:focus{
+    background-color: #6eb0ca;
+    color: white;
+}
+
+.reason-btn{
+    border: 1px solid #CCC;
+}
+
+.reason-btn:focus{
+    background-color: #6eb0ca;
+    color: white;
+}
+
+.active{
+    background-color: #6eb0ca;
+    color: white !important;
+}
+
+/* .appointment-btn:active{
+    background-color: #6eb0ca;
+    color: white;
+} */
+
 #schedule-container{
     height: 500px;
     overflow: scroll;
@@ -132,4 +156,8 @@ label{
 
 #submit-btn{
     background-color: rgb(91,151,175);
+}
+
+.step-2{
+    display: none;
 }
