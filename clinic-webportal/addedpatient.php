@@ -42,7 +42,7 @@
                     $data_missing[] = "birthbirth_date";
                 }else{
                     $birth_date = date("Y-m-d", strtotime($_POST["birth_date"]));
-                    echo($birth_date);
+                    alert($birth_date);
                 }
             }
 
@@ -93,7 +93,7 @@
                     $data_missing[] = "phone_number";
                 }else{
                     $phone_number = trim($_POST["phone_number"]);
-                    echo($phone_number);
+                    alert($phone_number);
                 }
             }
 
