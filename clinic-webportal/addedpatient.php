@@ -41,7 +41,7 @@
                 if(empty($_POST["birth_date"])){
                     $data_missing[] = "birth_date";
                 }else{
-                    $birth_date = date("Y-m-d", strtotime($_POST["birth_date"]));
+                    $formatted_birth_date = date("Y-m-d", strtotime($_POST["birth_date"]));
                 }
             }
 
@@ -140,11 +140,9 @@
             if(empty($data_missing)){
                 require_once("../mysqli_connect.php");
                 $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-
                 $stmt = mysqli_prepare($conn, $query);
 
-                mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, $birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
+                mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, $formatted_birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
 
                 mysqli_stmt_execute($stmt);
 
@@ -153,8 +151,8 @@
                 if($affected_rows == 1){
                     
                     // echo "Patient Entered";
-                    echo $phone_number;
-                    echo $birth_date;
+                    // echo $phone_number;
+                    echo $formatted_birth_date;
 
                     mysqli_stmt_close($stmt);
 
