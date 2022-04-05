@@ -42,6 +42,7 @@
                     $data_missing[] = "birthbirth_date";
                 }else{
                     $birth_date = date("Y-M-D,", strtotime($_POST["birth_date"]));
+                    echo($birth_date);
                 }
             }
 
