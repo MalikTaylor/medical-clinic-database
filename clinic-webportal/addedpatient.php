@@ -41,7 +41,8 @@
                 if(empty($_POST["birth_date"])){
                     $data_missing[] = "birth_date";
                 }else{
-                    $formatted_birth_date = date("Y-m-d", strtotime($_POST["birth_date"]));
+                    $date = $_POST["birth_date"];
+                    $formatted_birth_date = date("Y-m-d", strtotime($date));
                 }
             }
 
@@ -142,7 +143,7 @@
                 $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt = mysqli_prepare($conn, $query);
 
-                mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, $formatted_birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
+                mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, '$formatted_birth_date', $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
 
                 mysqli_stmt_execute($stmt);
 
