@@ -42,7 +42,6 @@
                     $data_missing[] = "birthbirth_date";
                 }else{
                     $birth_date = date("Y-m-d", strtotime($_POST["birth_date"]));
-                    alert($birth_date);
                 }
             }
 
@@ -93,7 +92,7 @@
                     $data_missing[] = "phone_number";
                 }else{
                     $phone_number = trim($_POST["phone_number"]);
-                    alert($phone_number);
+                    
                 }
             }
 
@@ -155,6 +154,8 @@
                 if($affected_rows == 1){
                     
                     echo "Patient Entered";
+                    echo($phone_number);
+                    echo($birth_date);
 
                     mysqli_stmt_close($stmt);
 
