@@ -177,7 +177,7 @@
             }
         ?>
 
-        <form action="./addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
+        <!-- <form action="./addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
             <div class="col-sm-6 patient-form-group" style="float: left;">
                 <label for="f_name">First Name</label>
                 <input class="name-field" type="text" name="f_name" required>  
@@ -258,6 +258,6 @@
                     <button id="submit-bt" class="form-btn btn btn-lg" type="submit" name="submit">Submit</button>
                 </div>
             </div>
-        </form>
+        </form> -->
     </body>
 </html>
