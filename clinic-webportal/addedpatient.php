@@ -41,7 +41,7 @@
                 if(empty($_POST["birth_date"])){
                     $data_missing[] = "birth_date";
                 }else{
-                    $formatted_birth_date = trim(date("Y-m-d", strtotime($_POST["birth_date"])));
+                    $formatted_birth_date = (date("Y-m-d", strtotime(trim($_POST["birth_date"])));
                 }
             }
 
