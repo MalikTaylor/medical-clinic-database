@@ -143,7 +143,7 @@
                 $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt = mysqli_prepare($conn, $query);
 
-                mysqli_stmt_bind_param($stmt, "sssdsssssssss", $starting_id, $f_name, $l_name, '$formatted_birth_date', $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
+                mysqli_stmt_bind_param($stmt, "sssssssssssss", $starting_id, $f_name, $l_name, $formatted_birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
 
                 mysqli_stmt_execute($stmt);
 
@@ -153,7 +153,7 @@
                     
                     // echo "Patient Entered";
                     // echo $phone_number;
-                    // echo $formatted_birth_date;
+                    echo $formatted_birth_date;
 
                     mysqli_stmt_close($stmt);
 
