@@ -153,9 +153,9 @@
 
                 if($affected_rows == 1){
                     
-                    echo "Patient Entered";
-                    echo($phone_number);
-                    echo($birth_date);
+                    // echo "Patient Entered";
+                    echo $phone_number;
+                    echo $birth_date;
 
                     mysqli_stmt_close($stmt);
 
