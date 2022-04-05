@@ -150,15 +150,13 @@
                 $affected_rows = mysqli_stmt_affected_rows($stmt);
 
                 if($affected_rows == 1){
-                    
-                    // echo "Patient Entered";
-                    // echo $phone_number;
-                    echo $formatted_birth_date;
-
                     mysqli_stmt_close($stmt);
-
                     mysqli_close($conn);
-                }else{
+                    header("Location: https://helix-medical-clinic.herokuapp.com/clinic-webportal/insurance.html");
+                    exit();
+                }
+                
+                else{
                     echo "Error Occured<br />";
                     echo mysqli_error();
 
@@ -166,13 +164,13 @@
 
                     mysqli_close($conn);
                 } 
-
-            } else{
+            }
+            
+            else{
                 echo "You need to enter the following data<br />";
                 foreach($data_missing as $missing){
                     echo "$missing<br />";
                 }
-            
             }
         ?>
 
