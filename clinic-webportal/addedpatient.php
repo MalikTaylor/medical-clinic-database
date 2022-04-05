@@ -41,7 +41,7 @@
                 if(empty($_POST["birthbirth_date"])){
                     $data_missing[] = "birthbirth_date";
                 }else{
-                    $birth_date = ($_POST["birth_date"]);
+                    $birth_date = date("Y-M-D,", strtotime($_POST["birth_date"]));
                 }
             }
 
@@ -125,6 +125,7 @@
                     $state = trim($_POST["state"]);
                 }
             }
+    
 
             if(isset($_POST["submit"])){
                 $data_missing = array();
