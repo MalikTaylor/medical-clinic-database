@@ -38,8 +38,8 @@
             if(isset($_POST["submit"])){
                 $data_missing = array();
 
-                if(empty($_POST["birthbirth_date"])){
-                    $data_missing[] = "birthbirth_date";
+                if(empty($_POST["birth_date"])){
+                    $data_missing[] = "birth_date";
                 }else{
                     $birth_date = date("Y-m-d", strtotime($_POST["birth_date"]));
                 }
@@ -92,7 +92,6 @@
                     $data_missing[] = "phone_number";
                 }else{
                     $phone_number = trim($_POST["phone_number"]);
-                    
                 }
             }
 
@@ -177,6 +176,8 @@
             
             }
         ?>
+
+        
 
         <!-- <form action="./addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
             <div class="col-sm-6 patient-form-group" style="float: left;">
