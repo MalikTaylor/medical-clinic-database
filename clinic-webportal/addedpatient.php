@@ -41,7 +41,7 @@
                 if(empty($_POST["birthbirth_date"])){
                     $data_missing[] = "birthbirth_date";
                 }else{
-                    $birth_date = date("Y-M-D,", strtotime($_POST["birth_date"]));
+                    $birth_date = ($_POST["birth_date"]);
                 }
             }
 
@@ -166,12 +166,12 @@
                     mysqli_close($conn);
                 } 
 
-                } else{
-                    echo "You need to enter the following data<br />";
-                    foreach($data_missing as $missing){
-                        echo "$missing<br />";
-                    }
+            } else{
+                echo "You need to enter the following data<br />";
+                foreach($data_missing as $missing){
+                    echo "$missing<br />";
                 }
+            
             }
         ?>
 
