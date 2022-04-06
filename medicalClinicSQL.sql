@@ -265,27 +265,27 @@ CREATE TRIGGER need_approve
 BEFORE INSERT ON appointment
 
 	FOR EACH ROW
-		IF (SELECT a.specialty_id FROM approval as a WHERE a.patient_id = NEW.patient_id) <> (SELECT ds.specialty_id FROM doctor_specialty as ds WHERE ds.employee_id = NEW.doctor_id) THEN
-			DELETE FROM appointment WHERE appt_id = NEW.appt_id;
-		END IF; //
+		IF (SELECT COUNT(*) FROM approval WHERE patient_id = NEW.patient_id) = 0 and (SELECT COUNT(*) FROM doctor_specialty WHERE employee_id = NEW.doctor_id) <> 0 then
+            SET NEW.start = NULL;
+            SET NEW.end = NULL;
+		ELSEIF (SELECT COUNT(*) FROM approval as a inner join doctor_specialty as d ON a.specialty_id = d.specialty_id WHERE patient_id = NEW.patient_id and d.employee_id = NEW.doctor_id) = 0  and (SELECT COUNT(*) FROM doctor_specialty WHERE employee_id = NEW.doctor_id) <> 0 THEN
+            SET NEW.start = NULL;
+            SET NEW.end = NULL;
+		END IF;   //
 				       
 DELIMITER ;
 				       
 DELIMITER //
 		       
 CREATE TRIGGER room_busy
-AFTER INSERT ON appointment
+BEFORE INSERT ON appointment
 
 	FOR EACH ROW
-		IF (SELECT a.start FROM appointment as a WHERE a.room_num = NEW.room_num) < NEW.start AND (SELECT a.end FROM appointment as a WHERE a.room_num = NEW.room_num) > NEW.start THEN 
-            UPDATE appointment
-            SET room_num = NULL 
-            WHERE appt_id = NEW.appt_id;
-          
-		ELSEIF (SELECT a.start FROM appointment as a WHERE a.room_num = NEW.room_num) < NEW.end AND (SELECT a.end FROM appointment as a WHERE a.room_num = NEW.room_num) > NEW.end THEN 
-            UPDATE appointment
-            SET room_num = NULL 
-            WHERE appt_id = NEW.appt_id;
+		IF (SELECT COUNT(*) FROM appointment as a WHERE NEW.start > a.start and NEW.start < a.end and a.room_num = NEW.room_num) <> 0 then
+            SET NEW.room_num = NULL;
+
+		ELSEIF  (SELECT COUNT(*) FROM appointment as a WHERE NEW.end < a.end and NEW.end > a.start and a.room_num = NEW.room_num) <> 0 then
+            SET NEW.room_num = NULL;
 
 		END IF;   //
 				       
