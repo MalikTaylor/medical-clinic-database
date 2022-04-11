@@ -16,6 +16,7 @@ USE medicalclinic;
 -- DROP TABLE emergency;
 -- DROP TABLE meds; 
 -- DROP TABLE patmeds; 
+-- DROP TABLE doctimes; 
 
 
 -- INSERT INTO patient VALUE ("Malik", "Taylor");
@@ -157,6 +158,8 @@ CREATE TABLE doctor(
     FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+
+
 CREATE TABLE specialty(
 	specialty_id SMALLINT NOT NULL PRIMARY KEY,
 	specialty_name VARCHAR(20) NOT NULL
@@ -176,6 +179,15 @@ CREATE TABLE office(
 	PRIMARY KEY(office_id)
 );
 
+CREATE TABLE doctimes(
+	employee_id VARCHAR(10) NOT NULL, 	
+	office_id CHAR(10) NOT NULL,
+	day DATE,
+	start TIME,
+	end TIME,
+	FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id)  ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (office_id) REFERENCES office(office_id)  ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 CREATE TABLE room(
 	room_num SMALLINT,
@@ -290,3 +302,17 @@ BEFORE INSERT ON appointment
 		END IF;   //
 				       
 DELIMITER ;
+
+
+delimiter //
+CREATE PROCEDURE showtimes(dayy DATE, place CHAR(10)) 
+deterministic
+BEGIN
+	IF (SELECT COUNT(*) FROM appointment WHERE date(start) = dayy and office_id = place) = 0 then
+			SELECT d.fname, d.lname, dt.started, dt.ended FROM doctor as d ,doctimes as dt WHERE dt.office_id = place and dt.dayte = dayy and d.employee_id = dt.employee_id;
+	-- else
+		--	SELECT d.fname, d.lname, dt.started, dt.ended FROM doctor as d ,doctimes as dt WHERE dt.office_id = place and dt.dayte = dayy and d.employee_id = dt.employee_id;
+	END IF; 
+    
+END //
+delimiter ;
