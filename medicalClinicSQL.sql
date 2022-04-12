@@ -97,6 +97,13 @@ CREATE TABLE patient(
     PRIMARY KEY(patient_id)
 );
 
+CREATE TABLE office(
+	office_id CHAR(10) NOT NULL,
+	office_name VARCHAR(50),
+	address VARCHAR(50),
+	office_phone CHAR(11),
+	PRIMARY KEY(office_id)
+);
 
 
 CREATE TABLE department(
@@ -120,6 +127,7 @@ CREATE TABLE nurse(
     hired DATETIME NOT NULL,
     department_id VARCHAR(10),
     PRIMARY KEY(employee_id),
+    FOREIGN KEY(department_id) REFERENCES department(department_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -134,6 +142,7 @@ CREATE TABLE med_staff(
     hired DATETIME NOT NULL,
     department_id VARCHAR(10),
     PRIMARY KEY(employee_id),
+    FOREIGN KEY(department_id) REFERENCES department(department_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -158,41 +167,35 @@ CREATE TABLE doctor(
     FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE specialty(
 	specialty_id SMALLINT NOT NULL PRIMARY KEY,
 	specialty_name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE doctor_specialty(
-	specialty_id SMALLINT NOT NULL,
+	specialty_id SMALLINT ,
 	employee_id VARCHAR(10) NOT NULL,
     	FOREIGN KEY (employee_id) REFERENCES doctor(employee_id),
 	FOREIGN KEY (specialty_id) REFERENCES specialty(specialty_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABLE office(
-	office_id CHAR(10) NOT NULL,
-	office_name VARCHAR(50),
-	address VARCHAR(50),
-	office_phone CHAR(11),
-	PRIMARY KEY(office_id)
-);
+
+
 
 CREATE TABLE doctimes(
 	employee_id VARCHAR(10) NOT NULL, 	
 	office_id CHAR(10) NOT NULL,
-	day DATE,
-	start TIME,
-	end TIME,
+	dayte DATE,
+	started TIME,
+	ended TIME,
 	FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id)  ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (office_id) REFERENCES office(office_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 CREATE TABLE room(
 	room_num SMALLINT,
 	unavaliable BOOLEAN,
-    PRIMARY KEY(room_num)
+    office_id CHAR(10) NOT NULL,
+    PRIMARY KEY(room_num),
+    FOREIGN KEY (office_id) REFERENCES office(office_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE appointment(
@@ -263,12 +266,11 @@ CREATE TABLE patmeds(
 
 
 CREATE TABLE approval(
-	specialty_id SMALLINT NOT NULL,
+	specialty_id SMALLINT,
 	patient_id CHAR(10) NOT NULL,
 	FOREIGN KEY(specialty_id) REFERENCES specialty(specialty_id) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY(patient_id) REFERENCES patient(patient_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 
 
 DELIMITER //
@@ -283,10 +285,14 @@ BEFORE INSERT ON appointment
 		ELSEIF (SELECT COUNT(*) FROM approval as a inner join doctor_specialty as d ON a.specialty_id = d.specialty_id WHERE patient_id = NEW.patient_id and d.employee_id = NEW.doctor_id) = 0  and (SELECT COUNT(*) FROM doctor_specialty WHERE employee_id = NEW.doctor_id) <> 0 THEN
             SET NEW.start = NULL;
             SET NEW.end = NULL;
-		END IF;   //
+		END IF; 
+        
+        
+        
+        //
 				       
 DELIMITER ;
-				       
+
 DELIMITER //
 		       
 CREATE TRIGGER room_busy
@@ -314,5 +320,28 @@ BEGIN
 		--	SELECT d.fname, d.lname, dt.started, dt.ended FROM doctor as d ,doctimes as dt WHERE dt.office_id = place and dt.dayte = dayy and d.employee_id = dt.employee_id;
 	END IF; 
     
+END //
+delimiter ;
+
+
+delimiter //
+CREATE PROCEDURE specbystate(specialtyid smallint, state varchar(10)) 
+deterministic
+BEGIN
+	IF state = 'ALL' then 
+		SELECT d.fname, d.lname, d.city, d.email FROM doctor as d, doctor_specialty as ds WHERE ds.specialty_id = specialtyid and ds.employee_id = d.employee_id;
+	else 
+		SELECT d.fname, d.lname, d.city, d.email FROM doctor as d, doctor_specialty as ds WHERE ds.specialty_id = specialtyid and ds.employee_id = d.employee_id and d.state = state;
+	END IF; 
+END //
+delimiter ;
+
+delimiter //
+CREATE PROCEDURE openrooms(officeid CHAR(10)) 
+deterministic
+BEGIN
+
+	SELECT r.room_num FROM room as r WHERE r.office_id = officeid and r.unavaliable = 0;
+
 END //
 delimiter ;
