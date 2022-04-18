@@ -27,6 +27,7 @@ USE medicalclinic;
 
 CREATE TABLE clinic_employee(
     employee_id VARCHAR(10) PRIMARY KEY,
+    username VARCHAR(30 NOT NULL,
     password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
@@ -44,6 +45,7 @@ CREATE TABLE clinic_employee(
 
 CREATE TABLE admin_employee(
     employee_id VARCHAR(10) NOT NULL,
+    username VARCHAR(30 NOT NULL,	
     password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
@@ -64,6 +66,7 @@ CREATE TABLE admin_employee(
 
 CREATE TABLE receptionist(
     employee_id VARCHAR(10) NOT NULL,
+    username VARCHAR(30 NOT NULL,
     password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
@@ -89,6 +92,7 @@ CREATE TABLE InsuranceComp(
 
 CREATE TABLE patient(
 	patient_id CHAR(10) NOT NULL,
+	username VARCHAR(30 NOT NULL,
     password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
@@ -126,6 +130,7 @@ CREATE TABLE department(
 
 CREATE TABLE nurse(
     employee_id CHAR(10) NOT NULL,
+    username VARCHAR(30 NOT NULL,	
     password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
@@ -142,6 +147,7 @@ CREATE TABLE nurse(
 
 CREATE TABLE med_staff(
     employee_id CHAR(10) NOT NULL,
+    username VARCHAR(30 NOT NULL,	
     password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
@@ -160,6 +166,7 @@ CREATE TABLE med_staff(
 
 CREATE TABLE doctor(
     employee_id VARCHAR(10) NOT NULL, 
+    username VARCHAR(30 NOT NULL,
     password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
