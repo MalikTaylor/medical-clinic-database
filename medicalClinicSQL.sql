@@ -102,9 +102,7 @@ CREATE TABLE patient(
     city VARCHAR(10),
     state VARCHAR(10),
     zipcode VARCHAR(10),
-    insurance INT,
-    PRIMARY KEY(patient_id),
-    FOREIGN KEY (insurance) REFERENCES InsuranceComp(company_id) ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY(patient_id)
 );
 
 CREATE TABLE office(
