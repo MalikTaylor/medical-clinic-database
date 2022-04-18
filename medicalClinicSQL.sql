@@ -27,6 +27,7 @@ USE medicalclinic;
 
 CREATE TABLE clinic_employee(
     employee_id VARCHAR(10) PRIMARY KEY,
+    password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
     birth_date DATE,
@@ -43,6 +44,7 @@ CREATE TABLE clinic_employee(
 
 CREATE TABLE admin_employee(
     employee_id VARCHAR(10) NOT NULL,
+    password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
@@ -62,6 +64,7 @@ CREATE TABLE admin_employee(
 
 CREATE TABLE receptionist(
     employee_id VARCHAR(10) NOT NULL,
+    password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
@@ -78,10 +81,15 @@ CREATE TABLE receptionist(
     FOREIGN KEY (employee_id) REFERENCES admin_employee(employee_id) ON UPDATE CASCADE ON DELETE CASCADE -- Not sure these last two lines are right but can be fixed later - XG
 );
 
-
+CREATE TABLE InsuranceComp(
+    company_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    phone_num VARCHAR(15)
+);
 
 CREATE TABLE patient(
 	patient_id CHAR(10) NOT NULL,
+    password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20),
     l_name VARCHAR(20),
     birth_date DATE,
@@ -94,7 +102,9 @@ CREATE TABLE patient(
     city VARCHAR(10),
     state VARCHAR(10),
     zipcode VARCHAR(10),
-    PRIMARY KEY(patient_id)
+    insurance INT,
+    PRIMARY KEY(patient_id),
+    FOREIGN KEY (insurance) REFERENCES InsuranceComp(company_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE office(
@@ -118,6 +128,7 @@ CREATE TABLE department(
 
 CREATE TABLE nurse(
     employee_id CHAR(10) NOT NULL,
+    password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
@@ -133,6 +144,7 @@ CREATE TABLE nurse(
 
 CREATE TABLE med_staff(
     employee_id CHAR(10) NOT NULL,
+    password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
@@ -150,6 +162,7 @@ CREATE TABLE med_staff(
 
 CREATE TABLE doctor(
     employee_id VARCHAR(10) NOT NULL, 
+    password VARCHAR(30) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
@@ -204,7 +217,6 @@ CREATE TABLE appointment(
     nurse_id CHAR(10),
     doctor_id CHAR(10) NOT NULL,
     start DATETIME,
-    end DATETIME,
     office_id CHAR(10) NOT NULL,
     room_num SMALLINT,
     reason_appt VARCHAR(100),
@@ -217,11 +229,7 @@ CREATE TABLE appointment(
 );
 
 
-CREATE TABLE InsuranceComp(
-    company_id INT PRIMARY KEY,
-    name VARCHAR(50),
-    phone_num VARCHAR(15)
-);
+
 
 CREATE TABLE emergency(
     patient_id CHAR(10) NOT NULL,
@@ -281,10 +289,8 @@ BEFORE INSERT ON appointment
 	FOR EACH ROW
 		IF (SELECT COUNT(*) FROM approval WHERE patient_id = NEW.patient_id) = 0 and (SELECT COUNT(*) FROM doctor_specialty WHERE employee_id = NEW.doctor_id) <> 0 then
             SET NEW.start = NULL;
-            SET NEW.end = NULL;
 		ELSEIF (SELECT COUNT(*) FROM approval as a inner join doctor_specialty as d ON a.specialty_id = d.specialty_id WHERE patient_id = NEW.patient_id and d.employee_id = NEW.doctor_id) = 0  and (SELECT COUNT(*) FROM doctor_specialty WHERE employee_id = NEW.doctor_id) <> 0 THEN
             SET NEW.start = NULL;
-            SET NEW.end = NULL;
 		END IF; 
         
         
@@ -299,10 +305,7 @@ CREATE TRIGGER room_busy
 BEFORE INSERT ON appointment
 
 	FOR EACH ROW
-		IF (SELECT COUNT(*) FROM appointment as a WHERE NEW.start > a.start and NEW.start < a.end and a.room_num = NEW.room_num) <> 0 then
-            SET NEW.room_num = NULL;
-
-		ELSEIF  (SELECT COUNT(*) FROM appointment as a WHERE NEW.end < a.end and NEW.end > a.start and a.room_num = NEW.room_num) <> 0 then
+		IF (SELECT COUNT(*) FROM appointment as a WHERE NEW.start = a.start and a.room_num = NEW.room_num) <> 0 then
             SET NEW.room_num = NULL;
 
 		END IF;   //
@@ -345,3 +348,5 @@ BEGIN
 
 END //
 delimiter ;
+
+
