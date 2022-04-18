@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -14,6 +18,7 @@
     <body>
         <?php
             $starting_id = rand(100000, 199999);
+            $_SESSION["patient_ID"] = $starting_id;
 
             if(isset($_POST["submit"])){
                 $data_missing = array();
@@ -22,6 +27,7 @@
                     $data_missing[] = "f_name";
                 }else{
                     $f_name = trim($_POST["f_name"]);
+                    $_SESSION["f_name"] = trim($_POST["f_name"]);
                 }
             }
 
@@ -32,6 +38,7 @@
                     $data_missing[] = "l_name";
                 }else{
                     $l_name = trim($_POST["l_name"]);
+                    $_SESSION["l_name"] = trim($_POST["l_name"]);
                 }
             }
 
@@ -43,6 +50,7 @@
                 }else{
                     $date = $_POST["birth_date"];
                     $formatted_birth_date = date("Y-m-d", strtotime($date));
+                    $_SESSION["patient_DOB"] = $formatted_birth_date;
                 }
             }
 
@@ -53,6 +61,7 @@
                     $data_missing[] = "race";
                 }else{
                     $race = trim($_POST["race"]);
+                    $_SESSION["patient_race"] = trim($_POST["race"]);
                 }
             }
 
@@ -63,6 +72,7 @@
                     $data_missing[] = "ethnicity";
                 }else{
                     $ethnicity = trim($_POST["ethnicity"]);
+                    $_SESSION["patient_ethnicity"] = trim($_POST["ethnicity"]);
                 }
             }
 
@@ -73,6 +83,7 @@
                     $data_missing[] = "sex";
                 }else{
                     $sex = trim($_POST["sex"]);
+                    $_SESSION["patient_sex"] = trim($_POST["sex"]);
                 }
             }
 
@@ -83,6 +94,7 @@
                     $data_missing[] = "email";
                 }else{
                     $email = trim($_POST["email"]);
+                    $_SESSION["patient_email"] = trim($_POST["email"]);
                 }
             }
 
@@ -93,6 +105,7 @@
                     $data_missing[] = "phone_number";
                 }else{
                     $phone_number = trim($_POST["phone_number"]);
+                    $_SESSION["patient_phone"] = $phone_number;
                 }
             }
 
@@ -103,6 +116,7 @@
                     $data_missing[] = "address";
                 }else{
                     $address = trim($_POST["address"]);
+                    $_SESSION["patient_address"] = trim($_POST["address"]);
                 }
             }
 
@@ -113,6 +127,7 @@
                     $data_missing[] = "city";
                 }else{
                     $city = trim($_POST["city"]);
+                    $_SESSION["patient_city"] = trim($_POST["city"]);
                 }
             }
 
@@ -123,6 +138,7 @@
                     $data_missing[] = "state";
                 }else{
                     $state = trim($_POST["state"]);
+                    $_SESSION["patient_state"] = trim($_POST["state"]);
                 }
             }
     
@@ -134,48 +150,53 @@
                     $data_missing[] = "zipcode";
                 }else{
                     $zipcode = trim($_POST["zipcode"]);
+                    $_SESSION["patient_zipcode"] = trim($_POST["zipcode"]);
                 }
-            }
-
-
-            if(empty($data_missing)){
-                require_once("../mysqli_connect.php");
-                $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                $stmt = mysqli_prepare($conn, $query);
-
-                mysqli_stmt_bind_param($stmt, "sssssssssssss", $starting_id, $f_name, $l_name, $formatted_birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
-
-                mysqli_stmt_execute($stmt);
-
-                $affected_rows = mysqli_stmt_affected_rows($stmt);
-
-                if($affected_rows == 1){
-                    mysqli_stmt_close($stmt);
-                    mysqli_close($conn);
-                    header("Location: https://helix-medical-clinic.herokuapp.com/clinic-webportal/insurance.html");
-                    exit();
-                }
-                
-                else{
-                    echo "Error Occured<br />";
-                    echo mysqli_error();
-
-                    mysqli_stmt_close($stmt);
-
-                    mysqli_close($conn);
-                } 
             }
             
-            else{
-                echo "You need to enter the following data<br />";
-                foreach($data_missing as $missing){
-                    echo "$missing<br />";
-                }
-            }
+            $_SESSION["missing_array"] = $data_missing;
+
+            header("Location: https://helix-medical-clinic.azurewebsites.net/clinic-webportal/insurance.php");
+            
+
+            // if(empty($data_missing)){
+            //     require_once("../mysqli_connect.php");
+            //     $query = "Insert INTO patient (patient_id, f_name, l_name, birth_date, race, ethnicity, sex, email, phone_number, address, city, state, zipcode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            //     $stmt = mysqli_prepare($conn, $query);
+
+            //     mysqli_stmt_bind_param($stmt, "sssssssssssss", $starting_id, $f_name, $l_name, $formatted_birth_date, $race, $ethnicity, $sex, $email, $phone_number, $address, $city, $state, $zipcode);
+
+            //     mysqli_stmt_execute($stmt);
+
+            //     $affected_rows = mysqli_stmt_affected_rows($stmt);
+
+            //     if($affected_rows == 1){
+            //         mysqli_stmt_close($stmt);
+            //         mysqli_close($conn);
+            //         header("Location: https://helix-medical-clinic.azurewebsites.net/clinic-webportal/insurance.php");
+            //         exit();
+            //     }
+                
+            //     else{
+            //         echo "Error Occured<br />";
+            //         echo mysqli_error();
+
+            //         mysqli_stmt_close($stmt);
+
+            //         mysqli_close($conn);
+            //     } 
+            // }
+            
+            // else{
+            //     echo "You need to enter the following data<br />";
+            //     foreach($data_missing as $missing){
+            //         echo "$missing<br />";
+            //     }
+            // }
         ?>
 
+        <!--      Redirect to add patient page rather than just re-create  (make sure session data is still save)  -->
         
-
         <!-- <form action="./addedpatient.php" class="patient-form-container" style="padding: 0px;" method="POST">
             <div class="col-sm-6 patient-form-group" style="float: left;">
                 <label for="f_name">First Name</label>

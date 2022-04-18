@@ -87,6 +87,7 @@ label{
 }
 .appointment-btn{
     border: 1px solid #CCC;
+    border-radius: 6px;
 }
 
 .appointment-btn:focus{
@@ -114,7 +115,8 @@ label{
 } */
 
 #schedule-container{
-    height: 500px;
+    height: auto !important;
+    max-height: 500px;
     overflow: scroll;
 }
 
@@ -143,6 +145,12 @@ label{
     justify-content: center;
     background-color: #6eb0ca !important;
     color: white;
+}
+
+.time-avail-btn:focus{
+    background-color: white !important;
+    color: #6eb0ca;
+    border: 1px solid #6eb0ca;
 }
 
 .form-btn{

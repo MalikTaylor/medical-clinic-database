@@ -109,14 +109,14 @@ CREATE TABLE department(
 );
 
 CREATE TABLE nurse(
-    employee_id CHAR(10) NOT NULL,
+    employee_id VARCHAR(10) NOT NULL,
     f_name VARCHAR(20) NOT NULL,
     l_name VARCHAR(20) NOT NULL,
     birth_date DATE,
     sex VARCHAR(10),
     phone_number VARCHAR(15),
     position VARCHAR(20),
-    hired DATETIME NOT NULL,
+    hired DATE NOT NULL,
     department_id VARCHAR(10),
     PRIMARY KEY(employee_id),
     FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -130,7 +130,7 @@ CREATE TABLE med_staff(
     sex VARCHAR(10),
     phone_number VARCHAR(15),
     position VARCHAR(20),
-    hired DATETIME NOT NULL,
+    hired DATE NOT NULL,
     department_id VARCHAR(10),
     PRIMARY KEY(employee_id),
     FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -152,7 +152,7 @@ CREATE TABLE doctor(
     city VARCHAR(10),
     state VARCHAR(10),
     zipcode VARCHAR(10),
-    hired DATETIME NOT NULL,
+    hired DATE NOT NULL,
     PRIMARY KEY (employee_id),
     FOREIGN KEY (employee_id) REFERENCES clinic_employee(employee_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -165,7 +165,7 @@ CREATE TABLE specialty(
 CREATE TABLE doctor_specialty(
 	specialty_id SMALLINT NOT NULL,
 	employee_id VARCHAR(10) NOT NULL,
-    	FOREIGN KEY (employee_id) REFERENCES doctor(employee_id),
+    FOREIGN KEY (employee_id) REFERENCES doctor(employee_id),
 	FOREIGN KEY (specialty_id) REFERENCES specialty(specialty_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE office(
@@ -179,7 +179,7 @@ CREATE TABLE office(
 
 CREATE TABLE room(
 	room_num SMALLINT,
-	unavaliable BOOLEAN,
+	unavailable BOOLEAN,
     PRIMARY KEY(room_num)
 );
 
@@ -206,6 +206,15 @@ CREATE TABLE InsuranceComp(
     company_id INT PRIMARY KEY,
     name VARCHAR(50),
     phone_num VARCHAR(15)
+);
+
+ CREATE TABLE pat_insurance(
+	patient_id CHAR(10) NOT NULL,
+    company_id INT,
+    insurance_name VARCHAR(50),
+    PRIMARY KEY(patient_id),
+    FOREIGN KEY(patient_id) REFERENCES patient(patient_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(company_id) REFERENCES insurancecomp(company_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE emergency(
@@ -255,6 +264,18 @@ CREATE TABLE approval(
 	patient_id CHAR(10) NOT NULL,
 	FOREIGN KEY(specialty_id) REFERENCES specialty(specialty_id) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY(patient_id) REFERENCES patient(patient_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE work_schedule(
+	shift_number SMALLINT AUTO_INCREMENT,
+	clinic_id VARCHAR(10),
+	workdate DATE,
+    employee_id VARCHAR(10) NOT NULL,
+    start_time TIME,
+    end_time TIME,
+    PRIMARY KEY(shift_number),
+    FOREIGN KEY(employee_id) REFERENCES clinic_employee(employee_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(clinic_id) REFERENCES office(office_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TRIGGER before_appointment
