@@ -326,18 +326,6 @@ BEFORE INSERT ON appointment
 DELIMITER ;
 
 
-delimiter //
-CREATE PROCEDURE showtimes(dayy DATE, place CHAR(10)) 
-deterministic
-BEGIN
-	IF (SELECT COUNT(*) FROM appointment WHERE date(start) = dayy and office_id = place) = 0 then
-			SELECT d.fname, d.lname, dt.started, dt.ended FROM doctor as d ,doctimes as dt WHERE dt.office_id = place and dt.dayte = dayy and d.employee_id = dt.employee_id;
-	-- else
-		--	SELECT d.fname, d.lname, dt.started, dt.ended FROM doctor as d ,doctimes as dt WHERE dt.office_id = place and dt.dayte = dayy and d.employee_id = dt.employee_id;
-	END IF; 
-    
-END //
-delimiter ;
 
 
 delimiter //
