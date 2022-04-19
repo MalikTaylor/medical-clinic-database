@@ -24,6 +24,7 @@ USE medicalclinic;
 -- INSERT INTO clinic_employee VALUE (10000, "Malik", "Taylor", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
+
 CREATE TABLE clinic_employee(
     employee_id VARCHAR(10) PRIMARY KEY,
     f_name VARCHAR(20),
@@ -98,12 +99,25 @@ CREATE TABLE patient(
     city VARCHAR(10),
     state VARCHAR(10),
     zipcode VARCHAR(10),
-    PRIMARY KEY(patient_id),
-    FOREIGN KEY (insurance) REFERENCES InsuranceComp(company_id) ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY(patient_id)
 );
 
 
+CREATE TABLE office(
+	office_id CHAR(10) NOT NULL,
+	office_name VARCHAR(50),
+	address VARCHAR(50),
+	office_phone CHAR(11),
+	PRIMARY KEY(office_id)
+);
 
+CREATE TABLE room(
+	room_num SMALLINT,
+	unavaliable BOOLEAN,
+    office_id CHAR(10) NOT NULL,
+    PRIMARY KEY(room_num),
+    FOREIGN KEY (office_id) REFERENCES office(office_id)  ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
 CREATE TABLE department(
@@ -184,21 +198,7 @@ CREATE TABLE doctor_specialty(
 );
 
 
-CREATE TABLE office(
-	office_id CHAR(10) NOT NULL,
-	office_name VARCHAR(50),
-	address VARCHAR(50),
-	office_phone CHAR(11),
-	PRIMARY KEY(office_id)
-);
 
-CREATE TABLE room(
-	room_num SMALLINT,
-	unavaliable BOOLEAN,
-    office_id CHAR(10) NOT NULL,
-    PRIMARY KEY(room_num),
-    FOREIGN KEY (office_id) REFERENCES office(office_id)  ON UPDATE CASCADE ON DELETE CASCADE
-);
 
 CREATE TABLE appointment(
     appt_id CHAR(10) NOT NULL,
@@ -333,9 +333,9 @@ CREATE PROCEDURE specbystate(specialtyid smallint, state varchar(10))
 deterministic
 BEGIN
 	IF state = 'ALL' then 
-		SELECT d.fname, d.lname, d.city, d.email FROM doctor as d, doctor_specialty as ds WHERE ds.specialty_id = specialtyid and ds.employee_id = d.employee_id;
+		SELECT d.f_name, d.l_name, d.city, d.email FROM doctor as d, doctor_specialty as ds WHERE ds.specialty_id = specialtyid and ds.employee_id = d.employee_id;
 	else 
-		SELECT d.fname, d.lname, d.city, d.email FROM doctor as d, doctor_specialty as ds WHERE ds.specialty_id = specialtyid and ds.employee_id = d.employee_id and d.state = state;
+		SELECT d.f_name, d.l_name, d.city, d.email FROM doctor as d, doctor_specialty as ds WHERE ds.specialty_id = specialtyid and ds.employee_id = d.employee_id and d.state = state;
 	END IF; 
 END //
 delimiter ;
@@ -401,5 +401,7 @@ BEGIN
 
 END //
 delimiter ;
+
+
 
 
